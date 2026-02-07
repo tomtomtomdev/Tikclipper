@@ -9,20 +9,44 @@ if ! command -v node &>/dev/null; then
   exit 1
 fi
 
-# Check ffmpeg
+# Check and install ffmpeg
 if ! command -v ffmpeg &>/dev/null; then
-  echo "ERROR: ffmpeg is not installed."
-  echo "  macOS: brew install ffmpeg"
-  echo "  Ubuntu: sudo apt install ffmpeg"
-  exit 1
+  echo "ffmpeg not found. Installing..."
+  if [[ "$OSTYPE" == "darwin"* ]]; then
+    if command -v brew &>/dev/null; then
+      brew install ffmpeg
+    else
+      echo "ERROR: Homebrew not found. Install it from https://brew.sh then re-run."
+      exit 1
+    fi
+  elif command -v apt-get &>/dev/null; then
+    sudo apt-get update && sudo apt-get install -y ffmpeg
+  elif command -v yum &>/dev/null; then
+    sudo yum install -y ffmpeg
+  else
+    echo "ERROR: Could not auto-install ffmpeg. Install it manually and re-run."
+    exit 1
+  fi
 fi
 
-# Check Redis
+# Check and install Redis
 if ! command -v redis-server &>/dev/null; then
-  echo "ERROR: Redis is not installed."
-  echo "  macOS: brew install redis"
-  echo "  Ubuntu: sudo apt install redis-server"
-  exit 1
+  echo "Redis not found. Installing..."
+  if [[ "$OSTYPE" == "darwin"* ]]; then
+    if command -v brew &>/dev/null; then
+      brew install redis
+    else
+      echo "ERROR: Homebrew not found. Install it from https://brew.sh then re-run."
+      exit 1
+    fi
+  elif command -v apt-get &>/dev/null; then
+    sudo apt-get update && sudo apt-get install -y redis-server
+  elif command -v yum &>/dev/null; then
+    sudo yum install -y redis
+  else
+    echo "ERROR: Could not auto-install Redis. Install it manually and re-run."
+    exit 1
+  fi
 fi
 
 # Create .env.local if missing
