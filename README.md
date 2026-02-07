@@ -24,11 +24,25 @@ AI-powered video clipper for Shopee affiliate marketers. Automatically turns lon
 ## Prerequisites
 
 - Node.js 18+
-- Redis server
-- FFmpeg installed (`brew install ffmpeg` on macOS)
 - Anthropic API key
+- Homebrew (macOS) or apt/yum (Linux) — for auto-installing ffmpeg and Redis
 
-## Setup
+## Quick Start
+
+Run the one-step setup script to install dependencies, set up the database, and start the app:
+
+```bash
+chmod +x setup.sh
+./setup.sh
+```
+
+The script will automatically install ffmpeg and Redis if they're not found on your system.
+
+After running, edit `.env.local` to add your Anthropic API key, then re-run `./setup.sh`.
+
+Open [http://localhost:3000](http://localhost:3000) to get started.
+
+## Manual Setup
 
 1. **Install dependencies:**
    ```bash
@@ -61,8 +75,6 @@ AI-powered video clipper for Shopee affiliate marketers. Automatically turns lon
    ```bash
    npm run dev
    ```
-
-Open [http://localhost:3000](http://localhost:3000) to get started.
 
 ## How It Works
 
